@@ -5,6 +5,7 @@ shipped with each release in data/items.json; the pipeline writes a RELEASE
 file next to this module so /health reports exactly which build is live.
 """
 import json
+import os
 from pathlib import Path
 
 from flask import Flask, abort, jsonify, request
@@ -83,5 +84,9 @@ def create_app(items=None, release=None):
 
     return app
 
+
+# DEMO: simulated fault that only appears on the server (APP_ENV=lab), not in tests
+if os.environ.get("APP_ENV") == "lab":
+    raise RuntimeError("Demo: startup failure on the server only")
 
 app = create_app()
