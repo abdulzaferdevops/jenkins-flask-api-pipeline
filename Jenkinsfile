@@ -153,7 +153,7 @@ pipeline {
           junit testResults: 'reports/junit.xml', allowEmptyResults: true
         }
         if (fileExists('reports/flake8.txt')) {
-          recordIssues(tools: [flake8(pattern: 'reports/flake8.txt')])
+          recordIssues(enabledForFailure: true, tools: [flake8(pattern: 'reports/flake8.txt')])
         }
       }
       sh 'rm -rf build release.tgz smoke.json'
