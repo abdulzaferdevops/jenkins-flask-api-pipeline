@@ -49,7 +49,7 @@ pipeline {
           currentBuild.description = (params.ACTION == 'deploy') ? "release ${env.RELEASE}" : 'rollback'
         }
         sh '''
-          if [ "$ACTION" = "deploy" ]; then
+          if [ "${ACTION:-deploy}" = "deploy" ]; then
             docker info >/dev/null 2>&1 || { echo "Jenkins cannot use Docker (needed for the test stage)"; exit 1; }
           fi
         '''
