@@ -78,6 +78,19 @@ flake8 && pytest
 flask --app app run   # http://127.0.0.1:5000/health
 ```
 
+## Results
+
+![Jenkins stage view](docs/pipeline.png)
+
+| Build | Change | Outcome |
+|:--|:--|:--|
+| #3 | Invalid catalogue (negative stock) | **Blocked by tests**; nothing deployed, release 00003 never reached the server |
+| #4 | Fix | Deployed and healthy |
+| #5 | Startup fault that only appears on the server | Passed tests, **failed health check, rolled back automatically** to #4 |
+| #6 | Revert | Deployed and healthy |
+
+![Failing test recorded in Jenkins](docs/tests.png)
+
 ## Licence
 
 MIT
